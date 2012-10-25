@@ -26,18 +26,18 @@ class LevelEditor(object):
 
     def showWindow(self):        
         try:
-            jngl.ShowWindow("Somyeol2D {0}".format(self.version), jngl.GetDesktopWidth(), jngl.GetDesktopHeight(), True)
-            self.windowWidth = jngl.GetDesktopWidth()
-            self.windowHeight = jngl.GetDesktopHeight()
+            jngl.showWindow("Somyeol2D {0}".format(self.version), jngl.getDesktopWidth(), jngl.getDesktopHeight(), True)
+            self.windowWidth = jngl.getDesktopWidth()
+            self.windowHeight = jngl.getDesktopHeight()
             self.cameray = -self.windowHeight
         #except RuntimeError: # Fullscreen mode not supported?
         except:
-            jngl.ShowWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
+            jngl.showWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
         
-        #jngl.ShowWindow("Somyeol2D - LevelEditor {0}".format(self.version), self.windowWidth, self.windowHeight,False)
-        jngl.SetBackgroundColor(255, 255, 255)
-        jngl.SetAntiAliasing(True)
-        jngl.Continue()
+        #jngl.showWindow("Somyeol2D - LevelEditor {0}".format(self.version), self.windowWidth, self.windowHeight,False)
+        jngl.setBackgroundColor(255, 255, 255)
+        jngl.setAntiAliasing(True)
+        #jngl.Continue()
 
     def __init__(self):
         self.version = "1.1"
@@ -51,11 +51,11 @@ class LevelEditor(object):
         self.windowHeight = 600
         self.zoom = False        
         try:
-            if jngl.GetDesktopWidth() < 1024 or jngl.GetDesktopehight() < 768:
+            if jngl.getDesktopWidth() < 1024 or jngl.getDesktopHeight() < 768:
                 import tkMessageBox
                 tkMessageBox.showwarning("Resolution too small!","Your desktop-resolution is smaller than 1024x768. Please be aware that this can lead to graphical bugs")
-            self.windowWidth = jngl.GetDesktopWidth()
-            self.windowHeight = jngl.GetDesktopHeight()
+            self.windowWidth = jngl.getDesktopWidth()
+            self.windowHeight = jngl.getDesktopHeight()
         except:
             pass
         self.showWindow()
@@ -80,10 +80,10 @@ class LevelEditor(object):
         if path != "":
             fileName = str("img/gadgets/" + os.path.split(path)[1])
             try:
-                jngl.Load(fileName)
+                jngl.load(fileName)
                 self.level.images.append(Image(x, y, fileName))
             except RuntimeError as e:
-                jngl.ErrorMessage("{0}. It must be inside img/gadgets/ folder.\n{1}".format(e, fileName))
+                jngl.errorMessage("{0}. It must be inside img/gadgets/ folder.\n{1}".format(e, fileName))
 
     def getObjectAt(self, x, y):
         mouse = Mouse(x, y)
@@ -140,7 +140,7 @@ class LevelEditor(object):
 
     def run(self):
         self.camera = 0
-        lastTime = jngl.Time()
+        lastTime = jngl.getTime()
         needDraw = True
         timePerStep = 0.01
         counter = 0
@@ -148,19 +148,19 @@ class LevelEditor(object):
         self.box = None
         self.port1 = None
 
-        while jngl.Running():
-            x = jngl.GetMouseX() - self.camerax
-            y = jngl.GetMouseY() - self.cameray
+        while jngl.running():
+            x = jngl.getMouseX() - self.camerax
+            y = jngl.getMouseY() - self.cameray
             if self.gridEnabled:
                 x = int(x/self.gridSize)*self.gridSize
                 y = int(y/self.gridSize)*self.gridSize
                 if self.box:
                     x += self.gridSize
                     y += self.gridSize
-            if jngl.Time() - lastTime > timePerStep:
+            if jngl.getTime() - lastTime > timePerStep:
                 lastTime += timePerStep
                 needDraw = True
-                if jngl.KeyDown("z"):
+                if jngl.keyDown("z"):
                     if not self.zoom:
                         self.camerax += self.windowWidth/2
                         self.cameray += self.windowHeight/2
@@ -171,20 +171,20 @@ class LevelEditor(object):
                     self.zoom = False
                     self.camerax -= self.windowWidth/2
                     self.cameray -= self.windowHeight/2
-                jngl.Scale(self.scale)
+                jngl.scale(self.scale)
                 self.scale = 1
-                if jngl.KeyPressed("s"):# and jngl.KeyDown(jngl.key.ControlL):
-                    jngl.HideWindow()
+                if jngl.keyPressed("s"):# and jngl.keyDown(jngl.key.ControlL):
+                    jngl.hideWindow()
                     file = asksaveasfile(mode='wb', defaultextension='.slv', filetypes=[("Somyeol Level", "*.slv")])
                     if file != None:
                         self.level.saveLevel(file)
                         file.close()
                     self.showWindow()
                     
-                if jngl.KeyPressed("g"):
+                if jngl.keyPressed("g"):
                     self.toggleGrid()
                 
-                if jngl.KeyPressed(jngl.key.ControlL) and jngl.KeyPressed("n"):
+                if jngl.keyPressed(jngl.key.ControlL) and jngl.keyPressed("n"):
                     self.camerax = 0
                     self.cameray = 0
                     self.level = Map.Map()
@@ -193,16 +193,16 @@ class LevelEditor(object):
                     self.scale = 1
                     self.zoom = False        
 
-                if jngl.KeyPressed("l"):# and jngl.KeyDown(jngl.key.ControlL):
-                    jngl.HideWindow()
+                if jngl.keyPressed("l"):# and jngl.keyDown(jngl.key.ControlL):
+                    jngl.hideWindow()
                     self.level.loadLevel()
                     self.showWindow()
 
-                if jngl.KeyPressed("i"):
+                if jngl.keyPressed("i"):
                     self.addImage(x, y)
 
-                if jngl.KeyPressed("t"):
-                    jngl.HideWindow()
+                if jngl.keyPressed("t"):
+                    jngl.hideWindow()
                     from Game import Game
                     game = Game()
                     tempMap = copy.deepcopy(self.level)
@@ -210,20 +210,20 @@ class LevelEditor(object):
                     game.enable_credits = False
                     game.testmode=True
                     game.run()
-                    jngl.HideWindow()
+                    jngl.hideWindow()
                     self.showWindow()
-                if jngl.KeyPressed("m"):
+                if jngl.keyPressed("m"):
                     self.add10 = not self.add10
                 
                 #Change the Placeable
-                if jngl.MousePressed(jngl.mouse.Right) or jngl.KeyPressed(jngl.key.PageUp):
+                if jngl.mousePressed(jngl.mouse.Right) or jngl.keyPressed(jngl.key.PageUp):
                     self.box = None
                     self.port1 = None
                     self.placeable_count += 1
                     if self.placeable_count >= len(self.placeable):
                         self.placeable_count = 0
                 
-                if jngl.KeyPressed(jngl.key.PageDown):
+                if jngl.keyPressed(jngl.key.PageDown):
                     self.box = None
                     self.port1 = None
                     self.placeable_count -= 1
@@ -231,91 +231,91 @@ class LevelEditor(object):
                         self.placeable_count = len(self.placeable)-1
 
                 for i in range (len(self.quickselect)-1):
-                    if (jngl.KeyPressed(self.quickselect[i])):
+                    if (jngl.keyPressed(self.quickselect[i])):
                         self.box = None
                         self.port1 = None
                         self.placeable_count = i % (len(self.placeable))
 
-                if jngl.MousePressed(jngl.mouse.Middle) or jngl.KeyPressed(jngl.key.Delete):
+                if jngl.mousePressed(jngl.mouse.Middle) or jngl.keyPressed(jngl.key.Delete):
                     obj = self.getObjectAt(x, y)
                     lists = (self.level.somyeols, self.level.objects, self.level.images)
                     for l in lists:
                         if obj in l:
                             l.remove(obj)
 
-                if jngl.KeyDown(jngl.key.ShiftL) or jngl.KeyDown(jngl.key.ShiftR):
-                    if jngl.MouseDown(jngl.mouse.Left):
+                if jngl.keyDown(jngl.key.ShiftL) or jngl.keyDown(jngl.key.ShiftR):
+                    if jngl.mouseDown(jngl.mouse.Left):
                         self.moveObject(x, y)
                 else:
                     self.obj = None
-                    if jngl.MousePressed(jngl.mouse.Left):
+                    if jngl.mousePressed(jngl.mouse.Left):
                         self.addObject(x, y)
 
-                if jngl.KeyDown(jngl.key.Right):
+                if jngl.keyDown(jngl.key.Right):
                     self.camerax -= 4
-                if jngl.KeyDown(jngl.key.Left):
+                if jngl.keyDown(jngl.key.Left):
                     self.camerax += 4
-                if jngl.KeyDown(jngl.key.Up):
+                if jngl.keyDown(jngl.key.Up):
                     self.cameray += 4
-                if jngl.KeyDown(jngl.key.Down):
+                if jngl.keyDown(jngl.key.Down):
                     self.cameray -= 4
 
                 if (self.cameray / self.scale + self.windowHeight) * self.scale <= self.windowHeight: # Kamera immer über dem Boden?
                     self.cameray = (self.windowHeight / self.scale - self.windowHeight) * self.scale
 
-                if jngl.KeyPressed(jngl.key.Escape):
-                    jngl.HideWindow()
+                if jngl.keyPressed(jngl.key.Escape):
+                    jngl.hideWindow()
                     quit = tkMessageBox.askyesno("Close Editor?","Do you really want to quit?")
                     if quit:
                         return
                     self.showWindow()
-                    jngl.SwapBuffers()
+                    jngl.swapBuffers()
 
             elif needDraw:
                 needDraw = False
-                jngl.PushMatrix()
-                jngl.Translate(self.camerax, self.cameray)
+                jngl.pushMatrix()
+                jngl.translate(self.camerax, self.cameray)
                 self.level.drawEditor()
                 if not self.zoom:
-                    if not jngl.KeyDown(jngl.key.ShiftL) and not jngl.KeyDown(jngl.key.ShiftR):
+                    if not jngl.keyDown(jngl.key.ShiftL) and not jngl.keyDown(jngl.key.ShiftR):
                         self.placeable[self.placeable_count](x, y).drawPreview()
-                        jngl.Print(self.placeable[self.placeable_count](x,y).__str__(),x + 40 ,y )
+                        jngl.print1(self.placeable[self.placeable_count](x,y).__str__(),x + 40 ,y )
                         if self.add10:
-                            jngl.Print("10x", x - 40, y + 10)
+                            jngl.print1("10x", x - 40, y + 10)
                     if self.box:
-                        jngl.SetColor(100, 100, 100, 100)
+                        jngl.setColor(100, 100, 100, 100)
                         if len(self.box) > 2:
-                            jngl.SetColor(255, 100, 100, 100)
-                        jngl.DrawRect(self.box[0], self.box[1], x - self.box[0], y - self.box[1])
+                            jngl.setColor(255, 100, 100, 100)
+                        jngl.drawRect(self.box[0], self.box[1], x - self.box[0], y - self.box[1])
                     elif self.port1:
-                        jngl.SetColor(255, 50, 50, 100)
-                        jngl.DrawLine(self.port1.x+16, self.port1.y+33, x+16, y+33)
+                        jngl.setColor(255, 50, 50, 100)
+                        jngl.drawLine(self.port1.x+16, self.port1.y+33, x+16, y+33)
                         
-                jngl.PopMatrix()
-                jngl.PushMatrix()
-                jngl.Translate(self.camerax % self.gridSize, self.cameray % self.gridSize)
+                jngl.popMatrix()
+                jngl.pushMatrix()
+                jngl.translate(self.camerax % self.gridSize, self.cameray % self.gridSize)
                 if self.gridEnabled and not self.zoom:
-                    jngl.SetColor(0, 0, 0, 40)
+                    jngl.setColor(0, 0, 0, 40)
                     for x in range(0, self.windowWidth, self.gridSize):
-                        jngl.DrawLine(x, -self.gridSize, x, self.windowHeight)
+                        jngl.drawLine(x, -self.gridSize, x, self.windowHeight)
                     for y in range(0, self.windowHeight, self.gridSize):
-                        jngl.DrawLine(-self.gridSize, y, self.windowWidth, y)
-                jngl.PopMatrix()
-                jngl.SetFontColor(0,0,0, 200)
-                if jngl.KeyDown('h'):
-                    jngl.Print("L - load file\nS - save file\nI - insert image\nLeft Mouse Button - add object\nMiddle Mouse Button - remove object\nRight Mouse Button or Page Up/Down - change object to add\nShift + Left Mouse Button - Move object\nG - change grid size\nT - test level\nM - add 10 somyeols at once\nZ Zoom out\nCtrl+N New Level (deletes everything!)", 10, 10)
+                        jngl.drawLine(-self.gridSize, y, self.windowWidth, y)
+                jngl.popMatrix()
+                jngl.setFontColor(0,0,0, 200)
+                if jngl.keyDown('h'):
+                    jngl.print1("L - load file\nS - save file\nI - insert image\nLeft Mouse Button - add object\nMiddle Mouse Button - remove object\nRight Mouse Button or Page Up/Down - change object to add\nShift + Left Mouse Button - Move object\nG - change grid size\nT - test level\nM - add 10 somyeols at once\nZ Zoom out\nCtrl+N New Level (deletes everything!)", 10, 10)
                 else:
-                    jngl.Print("Press H to show help text.   X = {0}   Y = {1}".format(-self.camerax, self.cameray), 10, 10)
-                jngl.Print("Somyeols: {0} Objects: {1}".format(len(self.level.somyeols), len(self.level.objects)), 10, 30)
-                fps += jngl.FPS() / 50
+                    jngl.print1("Press H to show help text.   X = {0}   Y = {1}".format(-self.camerax, self.cameray), 10, 10)
+                jngl.print1("Somyeols: {0} Objects: {1}".format(len(self.level.somyeols), len(self.level.objects)), 10, 30)
+                fps += jngl.getFPS() / 50
                 counter -= 1
                 if counter < 0:
                     counter = 50
-                    jngl.SetTitle("Somyeol2D - LevelEditor {0} - FPS: {1}".format(self.version, int(fps)))
+                    jngl.setTitle("Somyeol2D - LevelEditor {0} - FPS: {1}".format(self.version, int(fps)))
                     fps = 0
-                jngl.SwapBuffers()
+                jngl.swapBuffers()
             else:
-                jngl.Sleep(1)
+                jngl.sleep(1)
 
     def toggleGrid(self):
         if self.gridEnabled:
@@ -332,4 +332,4 @@ root = Tkinter.Tk()
 root.withdraw()
 game = LevelEditor()
 game.run()
-jngl.HideWindow()
+jngl.hideWindow()

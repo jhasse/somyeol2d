@@ -38,8 +38,8 @@ class Somyeol(GameObject.GameObject):
         self.currentFile = 0
         self.filename = self.filenames[self.currentFile]
         self.animationCnt = 10
-        self.width = jngl.GetWidth(self.filename)
-        self.height = jngl.GetHeight(self.filename)
+        self.width = jngl.getWidth(self.filename)
+        self.height = jngl.getHeight(self.filename)
         self.x = x
         self.y = y - 2
         self.yspeed = 0
@@ -91,9 +91,9 @@ class Somyeol(GameObject.GameObject):
         moveSpeed = self.moveSpeed + random.randint(0,5)/100.0
         if self.inverted:
             moveSpeed = -moveSpeed
-        if jngl.KeyDown(jngl.key.Right):
+        if jngl.keyDown(jngl.key.Right):
             self.xspeed += moveSpeed
-        if jngl.KeyDown(jngl.key.Left):
+        if jngl.keyDown(jngl.key.Left):
             self.xspeed -= moveSpeed
         self.yspeed += 0.2
         self.xspeed *= 0.97
@@ -127,7 +127,7 @@ class Somyeol(GameObject.GameObject):
     def jump(self, game):
         ##Vermutlich nicht notwendig
         #game.checkCollision(self)
-        if (jngl.KeyDown(jngl.key.Up) or jngl.KeyDown(jngl.key.Space)) and self.canJump:
+        if (jngl.keyDown(jngl.key.Up) or jngl.keyDown(jngl.key.Space)) and self.canJump:
             self.yspeed = -self.jumpSpeed + random.randint(0,5)/10.0
             game.sound.addToQueue(self.getSound(self.sound_jump))
         else:
@@ -137,21 +137,21 @@ class Somyeol(GameObject.GameObject):
     def explode(self):
         self.exploding = True
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
-        jngl.Draw(self.filename, self.x, self.y)
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255, 100)
+        jngl.draw(self.filename, self.x, self.y)
+        jngl.setSpriteColor(255, 255, 255)
     def draw(self):
-        jngl.SetColor(255, 255, 255)
+        jngl.setColor(255, 255, 255)
         x = self.x - self.width * (self.breathFactor - 1) / 2
         y = self.y + self.height * (self.breathFactor - 1)
         xfactor = self.breathFactor
         yfactor = 1+(1-self.breathFactor)
         if self.xspeed >= 0:
-            jngl.DrawScaled(self.filenames[self.currentFile], x, y, xfactor, yfactor)
+            jngl.drawScaled(self.filenames[self.currentFile], x, y, xfactor, yfactor)
         else:
-            jngl.DrawScaled(self.filenames[self.currentFile], x + self.width, y, -xfactor, yfactor)
+            jngl.drawScaled(self.filenames[self.currentFile], x + self.width, y, -xfactor, yfactor)
         if self.hasKey:
-            jngl.Draw(RESOURCEWORLD + "key.png", self.x, self.y - 20)
+            jngl.draw(RESOURCEWORLD + "key.png", self.x, self.y - 20)
     def kill(self):
         if self in self.game.level.somyeols:
             self.game.sound.addToQueue(self.getSound(self.sound_dead))
@@ -185,8 +185,8 @@ class FatSomyeol(Somyeol):
         Somyeol.__init__(self,x,y)
         self.currentFile = 0
         self.filename = self.filenames[self.currentFile]
-        self.width = jngl.GetWidth(self.filename)
-        self.height = jngl.GetHeight(self.filename)
+        self.width = jngl.getWidth(self.filename)
+        self.height = jngl.getHeight(self.filename)
         self.points = 50
         self.moveSpeed = 0.1
         self.jumpSpeed = 6
@@ -201,7 +201,7 @@ class CrippleSomyeol(Somyeol):
 
     def jump(self, game):
         self.yspeed = 0
-        if (jngl.KeyDown(jngl.key.Up)):
+        if (jngl.keyDown(jngl.key.Up)):
             self.game.sound.addToQueue(self.getSound(self.sound_jump))
 
 class EvilSomyeol(Somyeol):
@@ -221,8 +221,8 @@ class SmallSomyeol(Somyeol):
         self.filename = self.filenames[0]
         self.points = 5
         self.filename = self.filenames[self.currentFile]
-        self.width = jngl.GetWidth(self.filename)
-        self.height = jngl.GetHeight(self.filename)
+        self.width = jngl.getWidth(self.filename)
+        self.height = jngl.getHeight(self.filename)
         
 class GhostSomyeol(Somyeol):
     def __init__(self,x,y):
@@ -238,14 +238,14 @@ class GhostSomyeol(Somyeol):
         self.collidable.height = 1
     
     def drawPreview(self):
-        jngl.SetSpriteColor(100, 100, 255, 20)
-        jngl.Draw(self.filename, self.x, self.y)
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(100, 100, 255, 20)
+        jngl.draw(self.filename, self.x, self.y)
+        jngl.setSpriteColor(255, 255, 255)
     
     def draw(self):
-        jngl.SetSpriteColor(100,100,255,100)
+        jngl.setSpriteColor(100,100,255,100)
         Somyeol.draw(self)
-        jngl.SetSpriteColor(255,255,255,255)
+        jngl.setSpriteColor(255,255,255,255)
         
     def move(self, game):
         self.oldX = self.x
@@ -253,9 +253,9 @@ class GhostSomyeol(Somyeol):
         moveSpeed = self.moveSpeed + random.randint(0,5)/100.0
         if self.inverted:
             moveSpeed = -moveSpeed
-        if jngl.KeyDown(jngl.key.Right):
+        if jngl.keyDown(jngl.key.Right):
             self.xspeed += moveSpeed
-        if jngl.KeyDown(jngl.key.Left):
+        if jngl.keyDown(jngl.key.Left):
             self.xspeed -= moveSpeed
         self.yspeed += 0.2
         self.xspeed *= 0.97

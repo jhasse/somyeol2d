@@ -14,48 +14,48 @@ OVERFLOW_LEFT = False
 OVERFLOW_RIGHT = True
 
 def printCentered(t, x, y):
-    jngl.Print(t, int(x-jngl.GetTextWidth(t) / 2), y)
+    jngl.print1(t, int(x-jngl.getTextWidth(t) / 2), y)
 root = Tkinter.Tk()
 root.withdraw()
 game = Game()
-if not jngl.IsOpenALInstalled():
-    jngl.Print("Installing OpenAl... Please be patient...", 30, 30)
-    jngl.SwapBuffers()
+if not jngl.isOpenALInstalled():
+    jngl.print1("Installing OpenAl... Please be patient...", 30, 30)
+    jngl.swapBuffers()
     os.system("oalinst.exe -s")
 text = "loading graphics "
 dirList = os.listdir("img/World/")
 for f in dirList:
     if not f.endswith(".png"):
         continue
-    jngl.Load("img/World/" + f)
-    jngl.Print(text, 30, 30)
+    jngl.load("img/World/" + f)
+    jngl.print1(text, 30, 30)
     text += "."
-    jngl.SwapBuffers()
+    jngl.swapBuffers()
 dirList = os.listdir("img/Somyeols")
 for f in dirList:
     if not f.endswith(".png"):
         continue
-    jngl.Load("img/Somyeols/" + f)
-    jngl.Print(text, 30, 30)
+    jngl.load("img/Somyeols/" + f)
+    jngl.print1(text, 30, 30)
     text += "."
-    jngl.SwapBuffers()
+    jngl.swapBuffers()
 dirList = os.listdir("img/gadgets")
 for f in dirList:
     if not f.endswith(".png"):
         continue
-    jngl.Load("img/gadgets/" + f)
-    jngl.Print(text, 30, 30)
+    jngl.load("img/gadgets/" + f)
+    jngl.print1(text, 30, 30)
     text += "."
-    jngl.SwapBuffers()
+    jngl.swapBuffers()
 text += "\nloading sounds "
 dirList = os.listdir("sound/")
 for f in dirList:
     if not f.endswith(".ogg"):
         continue
-    jngl.Load("sound/" + f)
-    jngl.Print(text, 30, 30)
+    jngl.load("sound/" + f)
+    jngl.print1(text, 30, 30)
     text += "."
-    jngl.SwapBuffers()
+    jngl.swapBuffers()
 
 #load only subdirectorys
 levels = []
@@ -65,36 +65,45 @@ for f in os.listdir("data/maps/"):
         levels.append(f)
 level = 0
 start = True
-jngl.SetBackgroundColor(0,0,0)
+jngl.setBackgroundColor(0,0,0)
 running = True
 levelselect = False
-while running:#not jngl.KeyPressed(jngl.key.Escape):
+while running:#not jngl.keyPressed(jngl.key.Escape):
 
-    jngl.SwapBuffers()
-    while (not jngl.KeyPressed(jngl.key.Return) or jngl.KeyPressed(jngl.key.Escape)) and not levelselect:
-        jngl.Draw("img/World/splash.png", (game.windowWidth/2)-jngl.GetWidth("img/World/splash.png")/2, (game.windowHeight/2)-jngl.GetHeight("img/World/splash.png")/2)
-        if jngl.KeyPressed(jngl.key.Right):
+    jngl.swapBuffers()
+    while (not jngl.keyPressed(jngl.key.Return) or jngl.keyPressed(jngl.key.Escape)) and not levelselect:
+        print("jngl.draw splash")
+        jngl.draw("img/World/splash.png", (game.windowWidth/2)-jngl.getWidth("img/World/splash.png")/2, (game.windowHeight/2)-jngl.getHeight("img/World/splash.png")/2)
+        if jngl.keyPressed(jngl.key.Right):
             level += 1
             if level >= len(levels): level = 0
-        elif jngl.KeyPressed(jngl.key.Left):
+        elif jngl.keyPressed(jngl.key.Left):
             level -= 1
             if level < 0: level = len(levels)-1
-        elif jngl.KeyPressed(jngl.key.Escape):
+        elif jngl.keyPressed(jngl.key.Escape):
             #import sys
-            #jngl.HideWindow()
+            #jngl.hideWindow()
             running = False
             break
             #sys.exit()
+        print("bouncingEnterButton")
         bouncingEnterButton((game.windowWidth/2) + 320, (game.windowHeight/2)+100)
+        print("bouncingButton1")
         bouncingButton((game.windowWidth/2)-225, (game.windowHeight/2) + 115, "img/World/key_left_64.png")
+        print("bouncingButton2")
         bouncingButton((game.windowWidth/2)+180, (game.windowHeight/2) + 115, "img/World/key_right_64.png")
-        jngl.SetFontSize(20)
-        jngl.Print(levels[level], int((game.windowWidth/2) - jngl.GetTextWidth(levels[level]) / 2), (game.windowHeight/2)+138)
-        jngl.Print("Press F1 for Help", 10, game.windowHeight-30)
-        if jngl.KeyDown(jngl.key.F1):
-            jngl.Draw(HELPSCREEN, (game.windowWidth/2)-jngl.GetWidth(HELPSCREEN)/2, (game.windowHeight/2)-jngl.GetHeight(HELPSCREEN)/2)
-        jngl.Print("www.somyeol.com", game.windowWidth-180, game.windowHeight-30)
-        jngl.SwapBuffers()
+        print("setFontSize")
+        jngl.setFontSize(20)
+        print("print levels")
+        jngl.print1(levels[level], int((game.windowWidth/2) - jngl.getTextWidth(levels[level]) / 2), (game.windowHeight/2)+138)
+        print("print F1")
+        jngl.print1("Press F1 for Help", 10, game.windowHeight-30)
+        if jngl.keyDown(jngl.key.F1):
+            jngl.draw(HELPSCREEN, (game.windowWidth/2)-jngl.getWidth(HELPSCREEN)/2, (game.windowHeight/2)-jngl.getHeight(HELPSCREEN)/2)
+        print("print www")
+        jngl.print1("www.somyeol.com", game.windowWidth-180, game.windowHeight-30)
+        print("print swapBuffers")
+        jngl.swapBuffers()
         selected = 0
 
 
@@ -113,27 +122,27 @@ while running:#not jngl.KeyPressed(jngl.key.Escape):
         counter += 1
 
 
-    jngl.SwapBuffers()
+    jngl.swapBuffers()
 
-    lastTime = jngl.Time()
+    lastTime = jngl.getTime()
     needDraw = True
     timePerStep = 0.01
     levelselect = True
-    while not jngl.KeyPressed(jngl.key.Escape) and not jngl.KeyPressed(jngl.key.Return) and running and levelselect:
+    while not jngl.keyPressed(jngl.key.Escape) and not jngl.keyPressed(jngl.key.Return) and running and levelselect:
 
-        if jngl.Time() - lastTime > timePerStep:
+        if jngl.getTime() - lastTime > timePerStep:
             lastTime += timePerStep
             needDraw = True
 
         elif needDraw:
             overflow = None
-            if jngl.KeyPressed(jngl.key.Right):
+            if jngl.keyPressed(jngl.key.Right):
                 selected += 1
-            elif jngl.KeyPressed(jngl.key.Left):
+            elif jngl.keyPressed(jngl.key.Left):
                 selected -= 1
-            elif jngl.KeyPressed(jngl.key.Up):
+            elif jngl.keyPressed(jngl.key.Up):
                 selected -= 3
-            elif jngl.KeyPressed(jngl.key.Down):
+            elif jngl.keyPressed(jngl.key.Down):
                 selected += 3
 
             if selected < 0:
@@ -147,7 +156,7 @@ while running:#not jngl.KeyPressed(jngl.key.Escape):
                 else:
                     overflow = OVERFLOW_RIGHT
 
-            jngl.Draw("img/World/stageselect.png", (game.windowWidth/2)-jngl.GetWidth("img/World/stageselect.png")/2, (game.windowHeight/2)-jngl.GetHeight("img/World/stageselect.png")/2)
+            jngl.draw("img/World/stageselect.png", (game.windowWidth/2)-jngl.getWidth("img/World/stageselect.png")/2, (game.windowHeight/2)-jngl.getHeight("img/World/stageselect.png")/2)
             if screenAnimation != screenAnimationGoal:
                 if screenAnimation > screenAnimationGoal:
                     screenAnimation -= 25
@@ -189,20 +198,20 @@ while running:#not jngl.KeyPressed(jngl.key.Escape):
                     canvas_preview(((game.windowWidth/2)-500) + (screenAnimation + 1450 + 300*i -offset), (game.windowHeight/2)-100 , i == selected, i, False, levels[level])
                 else:
                     canvas_preview(((game.windowWidth/2)-500) + (screenAnimation + 1450 + 300*(i-3) -offset), (game.windowHeight/2)+100 , i == selected, i, False, levels[level])
-            jngl.SetFontSize(20)
-            jngl.Print("Press F1 for Help", 10, game.windowHeight-30)
-            if jngl.KeyDown(jngl.key.F1):
-                jngl.Draw(HELPSCREEN, (game.windowWidth/2)-jngl.GetWidth(HELPSCREEN)/2, (game.windowHeight/2)-jngl.GetHeight(HELPSCREEN)/2)        #jngl.Print(levels[level], int(445 - jngl.GetTextWidth(levels[level]) / 2), 485)
-            jngl.Print("www.somyeol.com", game.windowWidth-180, game.windowHeight-30)
-            jngl.SwapBuffers()
-            #jngl.Draw("img/World/canvas.png", self.windowWidth/2 - 137, self.windowHeight/2 - 92)
-            jngl.SetFontSize(50)
+            jngl.setFontSize(20)
+            jngl.print1("Press F1 for Help", 10, game.windowHeight-30)
+            if jngl.keyDown(jngl.key.F1):
+                jngl.draw(HELPSCREEN, (game.windowWidth/2)-jngl.getWidth(HELPSCREEN)/2, (game.windowHeight/2)-jngl.getHeight(HELPSCREEN)/2)        #jngl.print1(levels[level], int(445 - jngl.getTextWidth(levels[level]) / 2), 485)
+            jngl.print1("www.somyeol.com", game.windowWidth-180, game.windowHeight-30)
+            jngl.swapBuffers()
+            #jngl.draw("img/World/canvas.png", self.windowWidth/2 - 137, self.windowHeight/2 - 92)
+            jngl.setFontSize(50)
             needDraw = False
         else:
-            jngl.Sleep(1)
+            jngl.sleep(1)
     levelselect = False
-    if jngl.KeyPressed(jngl.key.Return) and running:
-        jngl.SetBackgroundColor(144, 187, 227)
+    if jngl.keyPressed(jngl.key.Return) and running:
+        jngl.setBackgroundColor(144, 187, 227)
         game.running = True
         game.levelpack = "{0}/".format(levels[level])
         game.levelNr = selected
@@ -210,11 +219,11 @@ while running:#not jngl.KeyPressed(jngl.key.Escape):
 ##        cProfile.run("game.run()")
         game.run()
         game.sound.stopSounds()
-        jngl.SetBackgroundColor(0,0,0)
+        jngl.setBackgroundColor(0,0,0)
         selected = 0
         if not game.levelpack_finished:
             levelselect=True
             selected = game.levelNr-1
-    jngl.Sleep(100)
+    jngl.sleep(100)
     #print levelselect
-jngl.HideWindow()
+jngl.hideWindow()

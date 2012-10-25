@@ -21,66 +21,66 @@ HELPSCREEN = "img/World/helpscreen.png"
 MIN_FPS = 10
 
 def canvas(x, y, selected, i, free, folder):
-    jngl.PushMatrix()
-    jngl.Translate(x + 60, y + 80)
+    jngl.pushMatrix()
+    jngl.translate(x + 60, y + 80)
     if selected:
-        factor = jngl.Time() * 5.0 % 10
+        factor = jngl.getTime() * 5.0 % 10
         if factor >= 5:
             factor = 5-(factor-5)
-        jngl.Scale(0.9 + factor/40.0)
-    jngl.Draw("img/World/canvas.png", -60, -80)
+        jngl.scale(0.9 + factor/40.0)
+    jngl.draw("img/World/canvas.png", -60, -80)
     if free:
-        jngl.Draw("img/gadgets/forbidden_bg.png", -90, -110)
-        jngl.Print(str(i+1), -60, -80)
-        jngl.Draw("img/gadgets/forbidden.png", -90, -110)
+        jngl.draw("img/gadgets/forbidden_bg.png", -90, -110)
+        jngl.print1(str(i+1), -60, -80)
+        jngl.draw("img/gadgets/forbidden.png", -90, -110)
     else:
-        jngl.Print(str(i+1), -60, -80)
+        jngl.print1(str(i+1), -60, -80)
     if os.path.isfile("data/maps/"+ folder +"/"+ str(i+1) +".png"):
-        jngl.Draw("data/maps/"+ folder +"/"+ str(i+1) +".png", -20, -20)
+        jngl.draw("data/maps/"+ folder +"/"+ str(i+1) +".png", -20, -20)
     else:
-        jngl.Draw("img/World/spawner_2.png", -40, -60)
-    jngl.PopMatrix()
+        jngl.draw("img/World/spawner_2.png", -40, -60)
+    jngl.popMatrix()
 
 def canvas_preview(x, y, selected, i, free, folder):
-    jngl.PushMatrix()
-    jngl.Translate(x + 50, y + 80)
+    jngl.pushMatrix()
+    jngl.translate(x + 50, y + 80)
     if selected:
-        factor = jngl.Time() * 5.0 % 10
+        factor = jngl.getTime() * 5.0 % 10
         if factor >= 5:
             factor = 5-(factor-5)
-        jngl.Scale(0.9 + factor/40.0)
-    jngl.Draw("img/World/canvas_preview.png", -60, -80)
+        jngl.scale(0.9 + factor/40.0)
+    jngl.draw("img/World/canvas_preview.png", -60, -80)
     if free:
-        jngl.Draw("img/gadgets/forbidden_bg.png", -90, -110)
-        jngl.Print(str(i+1), -60, -80)
-        jngl.Draw("img/gadgets/forbidden.png", -90, -110)
+        jngl.draw("img/gadgets/forbidden_bg.png", -90, -110)
+        jngl.print1(str(i+1), -60, -80)
+        jngl.draw("img/gadgets/forbidden.png", -90, -110)
     else:
-        jngl.Print(str(i+1), -60, -80)
+        jngl.print1(str(i+1), -60, -80)
     if os.path.isfile("data/maps/"+ folder +"/"+ str(i+1) +".png"):
-        jngl.Draw("data/maps/"+ folder +"/"+ str(i+1) +".png", -20, -20)
+        jngl.draw("data/maps/"+ folder +"/"+ str(i+1) +".png", -20, -20)
     else:
-        jngl.Draw("img/World/spawner_2.png", -40, -60)
-    jngl.PopMatrix()
+        jngl.draw("img/World/spawner_2.png", -40, -60)
+    jngl.popMatrix()
     
 def bouncingEnterButton(x, y):
-    jngl.PushMatrix()
-    jngl.Translate(x + 60, y + 80)
-    factor = jngl.Time() * 5.0 % 10
+    jngl.pushMatrix()
+    jngl.translate(x + 60, y + 80)
+    factor = jngl.getTime() * 5.0 % 10
     if factor >= 5:
         factor = 5-(factor-5)
-    jngl.Scale(0.8 + factor/20.0)
-    jngl.Draw("img/World/enter.png", -60, -80)
-    jngl.PopMatrix()
+    jngl.scale(0.8 + factor/20.0)
+    jngl.draw("img/World/enter.png", -60, -80)
+    jngl.popMatrix()
 
 def bouncingButton(x, y, img = "img/World/enter.png" ):
-    jngl.PushMatrix()
-    jngl.Translate(x + 60, y + 80)
-    factor = jngl.Time() * 5.0 % 10
+    jngl.pushMatrix()
+    jngl.translate(x + 60, y + 80)
+    factor = jngl.getTime() * 5.0 % 10
     if factor >= 5:
         factor = 5-(factor-5)
-    jngl.Scale(0.8 + factor/20.0)
-    jngl.Draw(img, -60, -80)
-    jngl.PopMatrix()
+    jngl.scale(0.8 + factor/20.0)
+    jngl.draw(img, -60, -80)
+    jngl.popMatrix()
 
 class Game:
     def __init__(self):
@@ -108,24 +108,24 @@ class Game:
         self.levelpack_finished = False
         
         try:
-            if (jngl.GetDesktopWidth() < 1024) or (jngl.GetDesktopHeight() < 600):
+            if (jngl.getDesktopWidth() < 1024) or (jngl.getDesktopHeight() < 600):
                 import tkMessageBox
                 tkMessageBox.showwarning("Resolution too small!","Your desktop-resolution is smaller than 1024x600. Please be aware that this can lead to graphical bugs")
-            jngl.ShowWindow("Somyeol2D {0}".format(self.version), jngl.GetDesktopWidth(), jngl.GetDesktopHeight(), True)
-            self.windowWidth = jngl.GetDesktopWidth()
-            self.windowHeight = jngl.GetDesktopHeight()
+            jngl.showWindow("Somyeol2D {0}".format(self.version), jngl.getDesktopWidth(), jngl.getDesktopHeight(), True)
+            self.windowWidth = jngl.getDesktopWidth()
+            self.windowHeight = jngl.getDesktopHeight()
             self.cameray = -self.windowHeight
         #except RuntimeError: # Fullscreen mode not supported?
         except:
-            jngl.ShowWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
+            jngl.showWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
 ##        self.windowWidth = 1024
 ##        self.windowHeight = 600
-##        jngl.ShowWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
-        #jngl.SetBackgroundColor(255, 255, 255)
-        jngl.SetBackgroundColor(144, 187, 227)
-        jngl.SetAntiAliasing(True)
-        jngl.SetFont("data/Japestyle Plain.ttf")
-        jngl.SetFontSize(20)
+##        jngl.showWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
+        #jngl.setBackgroundColor(255, 255, 255)
+        jngl.setBackgroundColor(144, 187, 227)
+        jngl.setAntiAliasing(True)
+        jngl.setFont("data/Japestyle Plain.ttf")
+        jngl.setFontSize(20)
         self.sound = Sound.Sound(self)
 
     def setMap(self, map):
@@ -152,9 +152,9 @@ class Game:
     music = [ "sound/somyeol1.ogg", "sound/somyeol2.ogg" ]
     currentTrack = 0
     def checkMusic(self):
-        if not jngl.IsPlaying(self.music[self.currentTrack]):
+        if not jngl.isPlaying(self.music[self.currentTrack]):
             self.currentTrack = (self.currentTrack + 1) % len(self.music)
-            jngl.Play(self.music[self.currentTrack])
+            jngl.play(self.music[self.currentTrack])
 
     def moveCamera(self):
         if len(self.level.somyeols) != 0:
@@ -221,7 +221,7 @@ class Game:
         line = 0
         hcount = 0
         SPACE = 60
-        lastTime = jngl.Time()
+        lastTime = jngl.getTime()
         timePerStep = 0.01
         credits = [["Programming", "Jannik Waschkau", "Jan-Niklas Hasse", "Kolja Lubitz", "Carsten Pfeffer"],
             ["Leveldesign", "Jannik Waschkau", "Jan-Niklas Hasse", "Kolja Lubitz"],
@@ -230,41 +230,41 @@ class Game:
             ["Graphics Engine (JNGL)","Jan-Niklas Hasse"],
             ["Thanks to","Hendrik Leibrandt","Malte 'MonkZ' Kuhn","Anika 'Chibi' Roosch","University Bremen"],
             ["Thanks to","Adrian Lubitz","Jannis Tanner"]]
-        jngl.SwapBuffers()
-        jngl.SetFontSize(50)
+        jngl.swapBuffers()
+        jngl.setFontSize(50)
         while self.running:
-            if jngl.Time() - lastTime > timePerStep:
+            if jngl.getTime() - lastTime > timePerStep:
                 lastTime += timePerStep
-                jngl.SetFontSize(50)
+                jngl.setFontSize(50)
                 for i in range(0, 3):
-                    jngl.Draw(RESOURCEWORLD + "Background.png", i*jngl.GetWidth(RESOURCEWORLD + "Background.png"), 0)
+                    jngl.draw(RESOURCEWORLD + "Background.png", i*jngl.getWidth(RESOURCEWORLD + "Background.png"), 0)
                 if line >= len(credits):
-                    jngl.Print("Thanks for Playing!!!", int((self.windowWidth/2) - jngl.GetTextWidth("Thanks for Playing") / 2), (self.windowHeight/2))
+                    jngl.print1("Thanks for Playing!!!", int((self.windowWidth/2) - jngl.getTextWidth("Thanks for Playing") / 2), (self.windowHeight/2))
                     self.levelpack_finished = True 
-                    if jngl.KeyPressed(jngl.key.Any): 
+                    if jngl.keyPressed(jngl.key.Any): 
                         self.sound.stopSounds()
                         self.running = False              
-                elif jngl.KeyPressed(jngl.key.Any):
+                elif jngl.keyPressed(jngl.key.Any):
                     line +=1
                 else:
                     for word in credits[line]:
-                        jngl.Print(word, int((self.windowWidth/2) - jngl.GetTextWidth(word) / 2), (self.windowHeight/2)-150+SPACE*hcount)
+                        jngl.print1(word, int((self.windowWidth/2) - jngl.getTextWidth(word) / 2), (self.windowHeight/2)-150+SPACE*hcount)
                         hcount += 1
                     hcount = 0
                     showcount-=1
                     if not showcount:
                         line+=1
                         showcount = SHOWCOUNT
-                jngl.SetFontSize(20)
-                jngl.Print("www.somyeol.com", self.windowWidth-180, self.windowHeight-30) 
-                jngl.SwapBuffers()
+                jngl.setFontSize(20)
+                jngl.print1("www.somyeol.com", self.windowWidth-180, self.windowHeight-30) 
+                jngl.swapBuffers()
     
             
     def run(self):
         self.levelpack_finished = False
         self.highscore.loadHighscore(self.levelpack)
         self.levelpack_finished = False
-        lastTime = jngl.Time()
+        lastTime = jngl.getTime()
         needDraw = True
         timePerStep = 0.01
         counter = 0
@@ -274,13 +274,13 @@ class Game:
         min_fps_count = MIN_FPS
         self.moveCamera()
         while self.running:
-            if min_fps_count and jngl.Time() - lastTime > timePerStep:
+            if min_fps_count and jngl.getTime() - lastTime > timePerStep:
                 lastTime += timePerStep
                 needDraw = True
-                if jngl.KeyPressed(jngl.key.Escape):
+                if jngl.keyPressed(jngl.key.Escape):
                     self.sound.stopSounds()
                     self.running = False
-                if jngl.KeyPressed("r"):
+                if jngl.keyPressed("r"):
                     self.level.somyeols = []
                     self.level.points = 0
 
@@ -296,81 +296,81 @@ class Game:
 
             elif needDraw:
                 if not min_fps_count:
-                    lastTime = jngl.Time()
+                    lastTime = jngl.getTime()
                 min_fps_count = MIN_FPS
                 self.sound.playSounds()
                 self.checkMusic()
-                jngl.SetFontSize(20)
+                jngl.setFontSize(20)
                 needDraw = False
 
                 self.level.drawBackground(self.cameray)
-                jngl.PushMatrix()
-                jngl.Translate(self.windowWidth/2, self.windowHeight)
-                jngl.Scale(1 + (self.scale - 1) / 2)
-                jngl.Translate(self.camerax / 2, -self.windowHeight + self.cameray / 2)
+                jngl.pushMatrix()
+                jngl.translate(self.windowWidth/2, self.windowHeight)
+                jngl.scale(1 + (self.scale - 1) / 2)
+                jngl.translate(self.camerax / 2, -self.windowHeight + self.cameray / 2)
                 for i in range(-2, 3):
-                    jngl.Draw(RESOURCEWORLD + "mountains.png", i*1024, self.windowHeight-300)
-                jngl.PopMatrix()
-                jngl.PushMatrix()
-                jngl.Scale(self.scale)
-                jngl.Translate(self.camerax, self.cameray)
+                    jngl.draw(RESOURCEWORLD + "mountains.png", i*1024, self.windowHeight-300)
+                jngl.popMatrix()
+                jngl.pushMatrix()
+                jngl.scale(self.scale)
+                jngl.translate(self.camerax, self.cameray)
                 self.level.draw()
                 #uncomment for visualization of boundingbox                
-##                jngl.SetColor(255,0,0,150)
-##                jngl.DrawRect(self.bounds.x,self.bounds.y,self.bounds.width,self.bounds.height)  
-                jngl.PopMatrix()
+##                jngl.setColor(255,0,0,150)
+##                jngl.drawRect(self.bounds.x,self.bounds.y,self.bounds.width,self.bounds.height)  
+                jngl.popMatrix()
 
-                jngl.SetSpriteColor(255, 255, 255, 150)
-                jngl.Draw("img/World/canvas.png", -80, -100)
-                jngl.Print("Somyeols: {0}".format(len(self.level.somyeols)), 10, 10)
-                jngl.Draw("img/World/canvas.png", self.windowWidth - 200, -120)
-                jngl.Print("Level: {0}".format(self.levelNr), self.windowWidth - 140, 10)
-                jngl.SetSpriteColor(255, 255, 255)
+                jngl.setSpriteColor(255, 255, 255, 150)
+                jngl.draw("img/World/canvas.png", -80, -100)
+                jngl.print1("Somyeols: {0}".format(len(self.level.somyeols)), 10, 10)
+                jngl.draw("img/World/canvas.png", self.windowWidth - 200, -120)
+                jngl.print1("Level: {0}".format(self.levelNr), self.windowWidth - 140, 10)
+                jngl.setSpriteColor(255, 255, 255)
                 
-                jngl.Print("Time: %.2f"%(seconds), 10, 40)
+                jngl.print1("Time: %.2f"%(seconds), 10, 40)
 
                 if self.finish:
                     if not self.testmode:
                         def printCentered(t, x, y):
-                            jngl.Print(t, int(x-jngl.GetTextWidth(t) / 2), y)
+                            jngl.print1(t, int(x-jngl.getTextWidth(t) / 2), y)
                         
                         def printHighscore():
                             x,y = (self.windowWidth/2) - 207, (self.windowHeight/2) - 140
-                            jngl.Draw("img/World/highscore.png", x,y)
+                            jngl.draw("img/World/highscore.png", x,y)
                             hs = self.highscore.getLevelScore(self.levelNr)
-                            jngl.Print("#".format(len(self.level.somyeols)), x+30, y+80)
-                            jngl.Print("Score".format(len(self.level.somyeols)), x+100, y+80)
-                            jngl.Print("Seconds".format(len(self.level.somyeols)), x+200, y+80)
-                            jngl.Print("Rank".format(len(self.level.somyeols)), x+300, y+80)
+                            jngl.print1("#".format(len(self.level.somyeols)), x+30, y+80)
+                            jngl.print1("Score".format(len(self.level.somyeols)), x+100, y+80)
+                            jngl.print1("Seconds".format(len(self.level.somyeols)), x+200, y+80)
+                            jngl.print1("Rank".format(len(self.level.somyeols)), x+300, y+80)
                             i = 1
                             best_rank = hs[0].getRank()
                             for score in hs:
-                                jngl.SetFontColor(0,0,0)
+                                jngl.setFontColor(0,0,0)
                                 if new_score:
                                     if new_score == score:
-                                        jngl.SetFontColor(255,50,50)
-                                jngl.Print(str(i)+".", x+30, y+90+(30*i))
-                                #jngl.Print(str(score.score), x+120, y+90+(30*i))
-                                jngl.Print("{0}".format(score.score), x+100, y+90+(30*i))
-                                jngl.Print("{0:.2f}".format(score.time), x+200, y+90+(30*i))
-                                jngl.Print("{0:.2%}".format(score.getRank()/best_rank), x+300, y+90+(30*i))
+                                        jngl.setFontColor(255,50,50)
+                                jngl.print1(str(i)+".", x+30, y+90+(30*i))
+                                #jngl.print1(str(score.score), x+120, y+90+(30*i))
+                                jngl.print1("{0}".format(score.score), x+100, y+90+(30*i))
+                                jngl.print1("{0:.2f}".format(score.time), x+200, y+90+(30*i))
+                                jngl.print1("{0:.2%}".format(score.getRank()/best_rank), x+300, y+90+(30*i))
                                 i += 1
-                            jngl.SetFontColor(0,0,00)    
+                            jngl.setFontColor(0,0,00)    
                         if self.finish_highscore:
                             printHighscore()
                         else:
-                            x,y = (self.windowWidth/2) - (jngl.GetWidth("img/World/canvas.png")/2), (self.windowHeight/2) - (jngl.GetHeight("img/World/canvas.png")/2)
-                            jngl.Draw("img/World/canvas.png", self.windowWidth/2 - 137, self.windowHeight/2 - 92)
-                            printCentered("FINAL SCORE", x+(jngl.GetWidth("img/World/canvas.png")/2), y+20)
-                            printCentered("NEEDED: 100", x+(jngl.GetWidth("img/World/canvas.png")/2), y+140)
-                            jngl.SetFontSize(50)
-                            printCentered(str(self.level.points), x+(jngl.GetWidth("img/World/canvas.png")/2), y+70)
-                        bouncingEnterButton(x+50, y+jngl.GetHeight("img/World/canvas.png")+50)
-                        if jngl.KeyPressed(jngl.key.Return) and self.finish_highscore:
+                            x,y = (self.windowWidth/2) - (jngl.getWidth("img/World/canvas.png")/2), (self.windowHeight/2) - (jngl.getHeight("img/World/canvas.png")/2)
+                            jngl.draw("img/World/canvas.png", self.windowWidth/2 - 137, self.windowHeight/2 - 92)
+                            printCentered("FINAL SCORE", x+(jngl.getWidth("img/World/canvas.png")/2), y+20)
+                            printCentered("NEEDED: 100", x+(jngl.getWidth("img/World/canvas.png")/2), y+140)
+                            jngl.setFontSize(50)
+                            printCentered(str(self.level.points), x+(jngl.getWidth("img/World/canvas.png")/2), y+70)
+                        bouncingEnterButton(x+50, y+jngl.getHeight("img/World/canvas.png")+50)
+                        if jngl.keyPressed(jngl.key.Return) and self.finish_highscore:
                             self.levelpack_finished = not self.loadNextLevel()
                             start_time = time.time()
                             
-                        elif jngl.KeyPressed(jngl.key.Return):
+                        elif jngl.keyPressed(jngl.key.Return):
                             if self.level.points < self.level.needed_points:
                                 self.levelNr -= 1
                                 self.levelpack_finished = not self.loadNextLevel()
@@ -386,28 +386,28 @@ class Game:
                 else:
                     seconds = time.time()-start_time
 
-                fps += jngl.FPS() / 50
+                fps += jngl.getFPS() / 50
                 counter -= 1
                 if counter < 0:
                     counter = 50
-                    jngl.SetTitle("Somyeol2D {0} - FPS: {1}".format(self.version, int(fps)))
+                    jngl.setTitle("Somyeol2D {0} - FPS: {1}".format(self.version, int(fps)))
                     fps = 0
-                jngl.SetFontSize(20)    
-                jngl.Print("Press F1 for Help", 10, self.windowHeight-30)  
-                if jngl.KeyDown(jngl.key.F1):
-                    jngl.Draw(HELPSCREEN, (self.windowWidth/2)-jngl.GetWidth(HELPSCREEN)/2, (self.windowHeight/2)-jngl.GetHeight(HELPSCREEN)/2)
+                jngl.setFontSize(20)    
+                jngl.print1("Press F1 for Help", 10, self.windowHeight-30)  
+                if jngl.keyDown(jngl.key.F1):
+                    jngl.draw(HELPSCREEN, (self.windowWidth/2)-jngl.getWidth(HELPSCREEN)/2, (self.windowHeight/2)-jngl.getHeight(HELPSCREEN)/2)
                 
                 #uncomment for visualization of collision-count
                 #colcount = 0
                 #for o in self.level.objects:
                 #    if o.canCollide:
                 #        colcount+=1
-                #jngl.Print(str(colcount), self.windowWidth-680, self.windowHeight-50)   
-                jngl.Print("www.somyeol.com", self.windowWidth-180, self.windowHeight-30)   
+                #jngl.print1(str(colcount), self.windowWidth-680, self.windowHeight-50)   
+                jngl.print1("www.somyeol.com", self.windowWidth-180, self.windowHeight-30)   
                             
-                jngl.SwapBuffers()
+                jngl.swapBuffers()
             else:
-                jngl.Sleep(1)
+                jngl.sleep(1)
             min_fps_count-=1
         self.sound.stopSounds()
 if __name__ == '__main__':

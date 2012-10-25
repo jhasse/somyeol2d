@@ -13,33 +13,33 @@ SOUND = "sound/"
 RESOURCEWORLD = "img/World/"
 class Spike(GameObject):
     img = RESOURCEWORLD + "spike.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
+        jngl.setSpriteColor(255, 255, 255, 100)
         self.draw()
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255)
     def draw(self):
-        jngl.Draw(self.img,self.x, self.y)
+        jngl.draw(self.img,self.x, self.y)
     def handleCollision(self, player):
         player.kill()
 
 class Key(GameObject):
     img = RESOURCEWORLD + "key.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
+        jngl.setSpriteColor(255, 255, 255, 100)
         self.draw()
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255)
     def draw(self):
-        jngl.Draw(self.img,self.x, self.y)
+        jngl.draw(self.img,self.x, self.y)
     def step(self):
         pass
     def handleCollision(self, player):
@@ -48,19 +48,19 @@ class Key(GameObject):
 
 class Lock(GameObject):
     img = RESOURCEWORLD + "lock.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
+        jngl.setSpriteColor(255, 255, 255, 100)
         self.draw()
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255)
     def isBox(self):
         return True
     def draw(self):
-        jngl.Draw(self.img,self.x, self.y)
+        jngl.draw(self.img,self.x, self.y)
     def handleCollision(self, player):
         #if self in self.game.level.objects and player.hasKey:
         #    self.game.level.objects.remove(self)
@@ -69,33 +69,33 @@ class Lock(GameObject):
 
 class NoJumpArea(GameObject):
     img = RESOURCEWORLD + "yellow_black.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
+        jngl.setSpriteColor(255, 255, 255, 100)
         self.draw()
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255)
     def draw(self):
-        jngl.Draw(self.img, self.x, self.y)
+        jngl.draw(self.img, self.x, self.y)
     def handleCollision(self, player):
         player.canJump = False
 
 class SlowArea(GameObject):
     img = RESOURCEWORLD + "slow.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
+        jngl.setSpriteColor(255, 255, 255, 100)
         self.draw()
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255)
     def draw(self):
-        jngl.Draw(self.img, self.x, self.y)
+        jngl.draw(self.img, self.x, self.y)
     def handleCollision(self, player):
         player.xspeed *= 0.8
 
@@ -121,13 +121,13 @@ class Box(GameObject):
     def drawPreview(self):
         self.draw()
     def draw(self):
-        #jngl.SetColor(200, 200, 200)
-        #jngl.DrawRect(self.x, self.y, self.width, self.height)
+        #jngl.setColor(200, 200, 200)
+        #jngl.drawRect(self.x, self.y, self.width, self.height)
         for x in range(0, self.width, self.textureSize):
             for y in range(0, self.height, self.textureSize):
-                jngl.Draw(self.texture, self.x + x, self.y + y)
+                jngl.draw(self.texture, self.x + x, self.y + y)
                 if y == 0:
-                    jngl.Draw(self.gras_texture, self.x + x, self.y)
+                    jngl.draw(self.gras_texture, self.x + x, self.y)
 
 class PassableBox(Box):
     def __init__(self, x, y, width = 32, height = 32):
@@ -135,9 +135,9 @@ class PassableBox(Box):
     def checkCollision(self, other):
         return False
     def drawPreview(self):
-        jngl.SetSpriteColor(100,100,255,50)
+        jngl.setSpriteColor(100,100,255,50)
         self.draw()
-        jngl.SetSpriteColor(255,255,255)    
+        jngl.setSpriteColor(255,255,255)    
 class MovingBox(Box):
     textureSize = 32
     texture = RESOURCEWORLD + "movingbox.png"
@@ -193,8 +193,8 @@ class FragileBox(Box):
         self.health = v
         
     def draw(self):
-        #jngl.SetColor(200, 200, 200)
-        #jngl.DrawRect(self.x, self.y, self.width, self.height)
+        #jngl.setColor(200, 200, 200)
+        #jngl.drawRect(self.x, self.y, self.width, self.height)
         tex = self.texture
         if self.health < 500:
             tex = self.texture2
@@ -202,9 +202,9 @@ class FragileBox(Box):
                 tex = self.texture3
         for x in range(0, self.width, self.textureSize):
             for y in range(0, self.height, self.textureSize):
-                jngl.Draw(tex, self.x + x, self.y + y)
+                jngl.draw(tex, self.x + x, self.y + y)
                 if y == 0:
-                    jngl.Draw(self.gras_texture, self.x + x, self.y)
+                    jngl.draw(self.gras_texture, self.x + x, self.y)
         
 
 class InvisibleBox(Box):
@@ -224,16 +224,16 @@ class InvisibleBox(Box):
         self.draw(100)
         
     def draw(self, opacity = 0):
-        jngl.SetSpriteColor(255, 255, 255, self.opacity)
+        jngl.setSpriteColor(255, 255, 255, self.opacity)
         if opacity >0:
-            jngl.SetSpriteColor(255, 255, 255, opacity)
-        #jngl.DrawRect(self.x, self.y, self.width, self.height)
+            jngl.setSpriteColor(255, 255, 255, opacity)
+        #jngl.drawRect(self.x, self.y, self.width, self.height)
         for x in range(0, self.width, self.textureSize):
             for y in range(0, self.height, self.textureSize):
-                jngl.Draw(self.texture, self.x + x, self.y + y)
+                jngl.draw(self.texture, self.x + x, self.y + y)
                 if y == 0:
-                    jngl.Draw(self.gras_texture, self.x + x, self.y)
-        jngl.SetSpriteColor(255,255,255)
+                    jngl.draw(self.gras_texture, self.x + x, self.y)
+        jngl.setSpriteColor(255,255,255)
 
 class PulsatingBox(Box):
     def __init__(self, x, y, width = 32, height = 32):
@@ -260,30 +260,30 @@ class PulsatingBox(Box):
         self.draw(50)
         
     def draw(self, opacity = 0):
-        jngl.SetSpriteColor(255, 255, 255, self.opacity)
+        jngl.setSpriteColor(255, 255, 255, self.opacity)
         if opacity >0:
-            jngl.SetSpriteColor(255, 255, 255, opacity)
-        #jngl.DrawRect(self.x, self.y, self.width, self.height)
+            jngl.setSpriteColor(255, 255, 255, opacity)
+        #jngl.drawRect(self.x, self.y, self.width, self.height)
         for x in range(0, self.width, self.textureSize):
             for y in range(0, self.height, self.textureSize):
-                jngl.Draw(self.texture, self.x + x, self.y + y)
+                jngl.draw(self.texture, self.x + x, self.y + y)
                 if y == 0:
-                    jngl.Draw(self.gras_texture, self.x + x, self.y)
-        jngl.SetSpriteColor(255,255,255)
+                    jngl.draw(self.gras_texture, self.x + x, self.y)
+        jngl.setSpriteColor(255,255,255)
 
 class Goal(GameObject):
     img = RESOURCEWORLD + "goal.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
+        jngl.setSpriteColor(255, 255, 255, 100)
         self.draw()
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255)
     def draw(self):
-        jngl.Draw(self.img,self.x, self.y)
+        jngl.draw(self.img,self.x, self.y)
     def step(self):
         pass
     def handleCollision(self, player):
@@ -292,8 +292,8 @@ class Goal(GameObject):
 
 class Spawner(GameObject):
     img = RESOURCEWORLD + "spawner_2.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -301,11 +301,11 @@ class Spawner(GameObject):
         self.quantity = 10
 
     def drawPreview(self):
-        jngl.SetSpriteColor(255, 255, 255, 100)
+        jngl.setSpriteColor(255, 255, 255, 100)
         self.draw()
-        jngl.SetSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255)
     def draw(self):
-        jngl.Draw(self.img,self.x, self.y)
+        jngl.draw(self.img,self.x, self.y)
     def handleCollision(self, player):
         if self.spawns:
             self.spawns = False
@@ -323,7 +323,7 @@ class Firetrap(GameObject):
     img = RESOURCEWORLD + "fire.png"
     fire = (RESOURCEWORLD+"flame0.png", RESOURCEWORLD+"flame1.png",
             RESOURCEWORLD+"flame2.png", RESOURCEWORLD+"flame3.png")
-    width = jngl.GetWidth(img)
+    width = jngl.getWidth(img)
     height = 96
     def __init__(self, x, y):
         self.x = x
@@ -354,26 +354,26 @@ class Firetrap(GameObject):
             self.anim_size -= .3
 
     def drawPreview(self):
-        jngl.Draw(self.img, self.x, self.y + self.height)
-        jngl.DrawScaled(self.fire[0], self.x, self.y, 1, 1.8)
+        jngl.draw(self.img, self.x, self.y + self.height)
+        jngl.drawScaled(self.fire[0], self.x, self.y, 1, 1.8)
     def drawEditor(self):
         self.drawPreview()
     def draw(self):
-        jngl.Draw(self.img, self.x, self.y + self.height)
+        jngl.draw(self.img, self.x, self.y + self.height)
         if self.active:
             xs = (self.anim_size*.13)-(.1*sin(self.animation))
             ys = self.anim_size*.2+(.1*sin(self.animation))
             y = self.y + (114-(64 * ys))
             x = self.x + (self.width-(16 * xs)) -12
-            jngl.DrawScaled(self.fire[int(self.animation)], x, y, xs, ys)
+            jngl.drawScaled(self.fire[int(self.animation)], x, y, xs, ys)
     def handleCollision(self, player):
         if self.active:
             player.kill()
 
 class Trampoline(GameObject):
     img = RESOURCEWORLD + "spring2.png"
-    width = jngl.GetWidth(img)
-    height = jngl.GetHeight(img)
+    width = jngl.getWidth(img)
+    height = jngl.getHeight(img)
     max_acceleration = -15
     def __init__(self, x, y):
         self.x = x
@@ -401,15 +401,15 @@ class Trampoline(GameObject):
         self.draw()
         
     def draw(self):
-        #jngl.Draw(self.img, self.x, self.y)
+        #jngl.draw(self.img, self.x, self.y)
         y = self.y - self.height * (self.scalefactor - 1)
-        jngl.DrawScaled(self.img, self.x, y+3, 1, self.scalefactor)
+        jngl.drawScaled(self.img, self.x, y+3, 1, self.scalefactor)
     
     def step(self):
         if self.collides:
-            if self.snd_play:# and not jngl.IsPlaying(SOUND+"trampoline.ogg"):
+            if self.snd_play:# and not jngl.isPlaying(SOUND+"trampoline.ogg"):
                 self.snd_play = False
-                jngl.Play(SOUND+"trampoline.ogg")
+                jngl.play(SOUND+"trampoline.ogg")
         self.collides = False
         if self.scalefactor < 1:
             self.scalefactor += 0.1

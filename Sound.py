@@ -15,7 +15,7 @@ class Sound(object):
         self.sounds_playing = 0
         self.sound_land = 0
         self.playing_sounds = []
-        jngl.SetVolume(50)
+        jngl.setVolume(50)
 
         #Generate a list of all sound-files
         self.sounds = []
@@ -26,13 +26,13 @@ class Sound(object):
             self.sounds.append(SOUND+f)
     def stopSounds(self):
         for sound in self.sounds:
-            jngl.Stop(sound)
+            jngl.stop(sound)
     def updateSoundsPlaying(self):
         self.sounds_playing = 0
         self.walk_sounds_playing = 0
         self.playing_sounds = []
         for sound in self.sounds:
-            if jngl.IsPlaying(sound):
+            if jngl.isPlaying(sound):
                 self.playing_sounds.append(sound)
                 if sound in Somyeol.Somyeol.sound_walk:
                     self.walk_sounds_playing += 1
@@ -46,12 +46,12 @@ class Sound(object):
 
         #Sounds that are used by alot of Somyeols get a special treatment (walking and jumping)
 
-        if jngl.KeyDown(jngl.key.Up):
+        if jngl.keyDown(jngl.key.Up):
             #Stop other sounds if jumping
             for sound in Somyeol.Somyeol.sound_walk:
-                jngl.Stop(sound)
+                jngl.stop(sound)
             for sound in Somyeol.Somyeol.sound_walk_crowd:
-                jngl.Stop(sound)
+                jngl.stop(sound)
 
         #play other sounds...
         for sound in self.sound_queue:
@@ -62,17 +62,17 @@ class Sound(object):
                 if self.sounds_playing >= self.somyeol_count:
                     continue
             if not sound in self.playing_sounds:
-                jngl.Play(sound)
+                jngl.play(sound)
             else:
                 #use the crowd sounds
                 if sound in Somyeol.Somyeol.sound_jump:
                     sound = Somyeol.Somyeol.sound_jump_crowd[random.randint(0,len(Somyeol.Somyeol.sound_jump_crowd)-1)]
-                    if not jngl.IsPlaying(sound):
-                        jngl.Play(sound)
+                    if not jngl.isPlaying(sound):
+                        jngl.play(sound)
                 elif sound in Somyeol.Somyeol.sound_walk:
                     sound = Somyeol.Somyeol.sound_walk_crowd[random.randint(0,len(Somyeol.Somyeol.sound_walk_crowd)-1)]
-                    if not jngl.IsPlaying(sound):
-                        jngl.Play(sound)
+                    if not jngl.isPlaying(sound):
+                        jngl.play(sound)
         self.sound_queue.clear()
 
     def getSound(self, list):

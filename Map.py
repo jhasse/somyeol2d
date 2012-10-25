@@ -31,12 +31,12 @@ class Map(object):
 
     def drawBackground(self, cameray):
         for i in range(0, 3):
-            jngl.Draw(RESOURCEWORLD + "Background.png", i*jngl.GetWidth(RESOURCEWORLD + "Background.png"), 0)
-        jngl.Draw(RESOURCEWORLD + "Wolken2.png", -350 + (jngl.Time() * 5) % (self.game.windowWidth+jngl.GetWidth(RESOURCEWORLD + "Wolken2.png")+350), 0)
-        jngl.Draw(RESOURCEWORLD + "Wolken2.png", -450 + (jngl.Time() * 4) % (self.game.windowWidth+jngl.GetWidth(RESOURCEWORLD + "Wolken2.png")+450), 100)
-        jngl.Draw(RESOURCEWORLD + "Wolken2.png", -650 + (jngl.Time() * 3) % (self.game.windowWidth+jngl.GetWidth(RESOURCEWORLD + "Wolken2.png")+650), 200)
-        jngl.Draw(RESOURCEWORLD + "Wolken2.png", -850 + (jngl.Time() * 2) % (self.game.windowWidth+jngl.GetWidth(RESOURCEWORLD + "Wolken2.png")+850), 150)
-        jngl.Draw(RESOURCEWORLD + "Wolken2.png", -1050 + (jngl.Time() * 1) % (self.game.windowWidth+jngl.GetWidth(RESOURCEWORLD + "Wolken2.png")+1050), 50)
+            jngl.draw(RESOURCEWORLD + "Background.png", i*jngl.getWidth(RESOURCEWORLD + "Background.png"), 0)
+        jngl.draw(RESOURCEWORLD + "Wolken2.png", -350 + (jngl.getTime() * 5) % (self.game.windowWidth+jngl.getWidth(RESOURCEWORLD + "Wolken2.png")+350), 0)
+        jngl.draw(RESOURCEWORLD + "Wolken2.png", -450 + (jngl.getTime() * 4) % (self.game.windowWidth+jngl.getWidth(RESOURCEWORLD + "Wolken2.png")+450), 100)
+        jngl.draw(RESOURCEWORLD + "Wolken2.png", -650 + (jngl.getTime() * 3) % (self.game.windowWidth+jngl.getWidth(RESOURCEWORLD + "Wolken2.png")+650), 200)
+        jngl.draw(RESOURCEWORLD + "Wolken2.png", -850 + (jngl.getTime() * 2) % (self.game.windowWidth+jngl.getWidth(RESOURCEWORLD + "Wolken2.png")+850), 150)
+        jngl.draw(RESOURCEWORLD + "Wolken2.png", -1050 + (jngl.getTime() * 1) % (self.game.windowWidth+jngl.getWidth(RESOURCEWORLD + "Wolken2.png")+1050), 50)
 
     def draw(self):
         for image in self.images:
@@ -65,8 +65,8 @@ class Map(object):
         for object in self.objects:
             if type(object) == GameObjects.Portal and object not in already_drawn and object.linked:
                 already_drawn.append(object.linked)
-                jngl.SetColor(255, 0, 0, 180)
-                jngl.DrawLine(object.x+16, object.y+33, object.linked.x+16, object.linked.y+33)
+                jngl.setColor(255, 0, 0, 180)
+                jngl.drawLine(object.x+16, object.y+33, object.linked.x+16, object.linked.y+33)
                 
 
     def saveLevel(self, file = None):
@@ -101,10 +101,10 @@ class Map(object):
 
         if len(self.somyeols) <= 0:
             if self.points >= self.needed_points:
-                if self.points >= self.needed_points_perfect:jngl.Play(self.game.sound.getSound(self.sound_perfect))
-                else: jngl.Play(self.game.sound.getSound(self.sound_win))
+                if self.points >= self.needed_points_perfect:jngl.play(self.game.sound.getSound(self.sound_perfect))
+                else: jngl.play(self.game.sound.getSound(self.sound_win))
             else:
-                jngl.Play(self.game.sound.getSound(self.sound_loose))
+                jngl.play(self.game.sound.getSound(self.sound_loose))
             self.game.finish = True
 
     def checkCollision(self, somyeol):

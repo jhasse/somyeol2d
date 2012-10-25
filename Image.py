@@ -5,10 +5,10 @@ class Image(object):
         self.x = x
         self.y = y
         self.filename = filename
-        self.width = jngl.GetWidth(filename)
-        self.height = jngl.GetHeight(filename)
+        self.width = jngl.getWidth(filename)
+        self.height = jngl.getHeight(filename)
     def draw(self):
-        jngl.Draw(self.filename, self.x, self.y)
+        jngl.draw(self.filename, self.x, self.y)
     def checkCollision(self, other):
         left1 = self.x
         left2 = other.x

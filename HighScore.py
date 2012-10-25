@@ -84,7 +84,7 @@ class HighScore(object):
             data = cPickle.load(file)
             self.scores = data
         except EOFError:
-            jngl.ErrorMessage("Empty file: {0}".format(path))
+            jngl.errorMessage("Empty file: {0}".format(path))
         except: return
     
     # -------------------------------------------------------------------------

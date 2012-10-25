@@ -16,4 +16,4 @@ class DeathAnimation:
             if self.i >= len(self.filenames):
                 animations.remove(self)
     def draw(self):
-        jngl.Draw(self.filenames[self.i], self.x-jngl.GetWidth(self.filenames[self.i])/2, self.y-jngl.GetHeight(self.filenames[self.i])/2)
+        jngl.draw(self.filenames[self.i], self.x-jngl.getWidth(self.filenames[self.i])/2, self.y-jngl.getHeight(self.filenames[self.i])/2)
