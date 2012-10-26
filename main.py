@@ -22,6 +22,7 @@ if not jngl.isOpenALInstalled():
     jngl.print1("Installing OpenAl... Please be patient...", 30, 30)
     jngl.swapBuffers()
     os.system("oalinst.exe -s")
+jngl.translate(-jngl.getDesktopWidth()/2, -jngl.getDesktopHeight()/2)
 text = "loading graphics "
 dirList = os.listdir("img/World/")
 for f in dirList:
