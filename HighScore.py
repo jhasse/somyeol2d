@@ -3,7 +3,7 @@
 ## 
 ##############################################################
 
-import cPickle
+import pickle
 import sys, os
 
 class LevelScore(object):
@@ -81,7 +81,7 @@ class HighScore(object):
             if not os.path.exists(lpackpath):
                 os.makedirs(lpackpath)
             file = open(lpackpath+"highscore.hsc", "rb")
-            data = cPickle.load(file)
+            data = pickle.load(file, fix_imports=True)
             self.scores = data
         except EOFError:
             jngl.errorMessage("Empty file: {0}".format(path))
@@ -124,7 +124,7 @@ class HighScore(object):
             os.makedirs(lpackpath)
         file = open(lpackpath+"highscore.hsc", "wb")
         data = self.scores
-        cPickle.dump(data, file)
+        pickle.dump(data, file)
     
     # -------------------------------------------------------------------------
     

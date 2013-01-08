@@ -137,9 +137,9 @@ class Somyeol(GameObject.GameObject):
     def explode(self):
         self.exploding = True
     def drawPreview(self):
-        jngl.setSpriteColor(255, 255, 255, 100)
+        jngl.pushSpriteAlpha(100)
         jngl.draw(self.filename, self.x, self.y)
-        jngl.setSpriteColor(255, 255, 255)
+        jngl.popSpriteAlpha()
     def draw(self):
         jngl.setColor(255, 255, 255)
         x = self.x - self.width * (self.breathFactor - 1) / 2
@@ -240,7 +240,7 @@ class GhostSomyeol(Somyeol):
     def drawPreview(self):
         jngl.setSpriteColor(100, 100, 255, 20)
         jngl.draw(self.filename, self.x, self.y)
-        jngl.setSpriteColor(255, 255, 255)
+        jngl.setSpriteColor(255, 255, 255, 255)
     
     def draw(self):
         jngl.setSpriteColor(100,100,255,100)

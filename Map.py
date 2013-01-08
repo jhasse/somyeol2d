@@ -4,11 +4,11 @@
 ##############################################################
 
 import jngl
-import cPickle
+import pickle
 import GameObjects
 
-from tkFileDialog import *
-import Tkinter
+from tkinter.filedialog import *
+import tkinter
 
 from GameObjects import RESOURCEWORLD
 SOUND = "sound/"
@@ -73,7 +73,7 @@ class Map(object):
         if file == None:
             file = open("test.slv", "wb")
         data = [self.somyeols,self.objects,self.images]
-        cPickle.dump(data, file)
+        pickle.dump(data, file)
 
     def loadLevel(self, path = None):
         self.points = 0
@@ -83,7 +83,7 @@ class Map(object):
             return
         try:
             file = open(path, "rb")
-            data = cPickle.load(file)
+            data = pickle.load(file, fix_imports=True)
             self.somyeols = data[0]
             self.objects = data[1]
             self.images = data[2]

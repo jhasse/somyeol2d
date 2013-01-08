@@ -12,7 +12,7 @@ from Image import Image
 
 from tkFileDialog import *
 import tkMessageBox
-import Tkinter
+import tkinter
 
 class Mouse:
     def __init__(self, x, y):
@@ -279,9 +279,9 @@ class LevelEditor(object):
                 if not self.zoom:
                     if not jngl.keyDown(jngl.key.ShiftL) and not jngl.keyDown(jngl.key.ShiftR):
                         self.placeable[self.placeable_count](x, y).drawPreview()
-                        jngl.print1(self.placeable[self.placeable_count](x,y).__str__(),x + 40 ,y )
+                        jngl.print(self.placeable[self.placeable_count](x,y).__str__(),x + 40 ,y )
                         if self.add10:
-                            jngl.print1("10x", x - 40, y + 10)
+                            jngl.print("10x", x - 40, y + 10)
                     if self.box:
                         jngl.setColor(100, 100, 100, 100)
                         if len(self.box) > 2:
@@ -303,10 +303,10 @@ class LevelEditor(object):
                 jngl.popMatrix()
                 jngl.setFontColor(0,0,0, 200)
                 if jngl.keyDown('h'):
-                    jngl.print1("L - load file\nS - save file\nI - insert image\nLeft Mouse Button - add object\nMiddle Mouse Button - remove object\nRight Mouse Button or Page Up/Down - change object to add\nShift + Left Mouse Button - Move object\nG - change grid size\nT - test level\nM - add 10 somyeols at once\nZ Zoom out\nCtrl+N New Level (deletes everything!)", 10, 10)
+                    jngl.print("L - load file\nS - save file\nI - insert image\nLeft Mouse Button - add object\nMiddle Mouse Button - remove object\nRight Mouse Button or Page Up/Down - change object to add\nShift + Left Mouse Button - Move object\nG - change grid size\nT - test level\nM - add 10 somyeols at once\nZ Zoom out\nCtrl+N New Level (deletes everything!)", 10, 10)
                 else:
-                    jngl.print1("Press H to show help text.   X = {0}   Y = {1}".format(-self.camerax, self.cameray), 10, 10)
-                jngl.print1("Somyeols: {0} Objects: {1}".format(len(self.level.somyeols), len(self.level.objects)), 10, 30)
+                    jngl.print("Press H to show help text.   X = {0}   Y = {1}".format(-self.camerax, self.cameray), 10, 10)
+                jngl.print("Somyeols: {0} Objects: {1}".format(len(self.level.somyeols), len(self.level.objects)), 10, 30)
                 fps += jngl.getFPS() / 50
                 counter -= 1
                 if counter < 0:
@@ -328,7 +328,7 @@ class LevelEditor(object):
             self.gridSize = 16
 
 #if __name__ == "__main__":
-root = Tkinter.Tk()
+root = tkinter.Tk()
 root.withdraw()
 game = LevelEditor()
 game.run()

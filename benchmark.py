@@ -90,19 +90,19 @@ class Benchmark(Game):
 
                 jngl.setSpriteColor(255, 255, 255, 150)
                 jngl.draw("img/World/canvas.png", -80, -100)
-                jngl.print1("Somyeols: {0}".format(len(self.level.somyeols)), 10, 10)
+                jngl.print("Somyeols: {0}".format(len(self.level.somyeols)), 10, 10)
                 jngl.draw("img/World/canvas.png", self.windowWidth - 200, -120)
-                jngl.print1("Level: {0}".format(self.levelNr), self.windowWidth - 140, 10)
-                jngl.setSpriteColor(255, 255, 255)
+                jngl.print("Level: {0}".format(self.levelNr), self.windowWidth - 140, 10)
+                jngl.setSpriteColor(255, 255, 255, 255)
                 
-                jngl.print1("Time: %.2f"%(seconds), 10, 40)
+                jngl.print("Time: %.2f"%(seconds), 10, 40)
 
                 if self.finish:
                     x,y = (self.windowWidth/2) - (jngl.getWidth("img/World/canvas.png")/2), (self.windowHeight/2) - (jngl.getHeight("img/World/canvas.png")/2)
                     jngl.draw("img/World/canvas.png", self.windowWidth/2 - 137, self.windowHeight/2 - 92)
-                    jngl.print1("Score", x+(jngl.getWidth("img/World/canvas.png")/2), y+20)
+                    jngl.print("Score", x+(jngl.getWidth("img/World/canvas.png")/2), y+20)
                     jngl.setFontSize(50)
-                    jngl.print1(str(colsps), x+10, y+70)
+                    jngl.print(str(colsps), x+10, y+70)
                     bouncingEnterButton(x+50, y+jngl.getHeight("img/World/canvas.png")+50)
                     if jngl.keyPressed(jngl.key.Return):
                         self.running=False
@@ -127,8 +127,8 @@ class Benchmark(Game):
                             self.finish = True
                     fps = 0
                 jngl.setFontSize(20)  
-                jngl.print1("FPS {0}".format(lfps), self.windowWidth-180, self.windowHeight-30)  
-                jngl.print1("Objects {0} Somyeol {1} Score {2}".format(len(self.level.objects),len(self.level.somyeols),colsps), 10, self.windowHeight-30)  
+                jngl.print("FPS {0}".format(lfps), self.windowWidth-180, self.windowHeight-30)  
+                jngl.print("Objects {0} Somyeol {1} Score {2}".format(len(self.level.objects),len(self.level.somyeols),colsps), 10, self.windowHeight-30)  
                 if jngl.keyDown(jngl.key.F1):
                     jngl.draw(HELPSCREEN, (self.windowWidth/2)-jngl.getWidth(HELPSCREEN)/2, (self.windowHeight/2)-jngl.getHeight(HELPSCREEN)/2)
                 
@@ -137,7 +137,7 @@ class Benchmark(Game):
                 #for o in self.level.objects:
                 #    if o.canCollide:
                 #        colcount+=1
-                #jngl.print1(str(colcount), self.windowWidth-680, self.windowHeight-50)     
+                #jngl.print(str(colcount), self.windowWidth-680, self.windowHeight-50)     
                             
                 jngl.swapBuffers()
             else:
