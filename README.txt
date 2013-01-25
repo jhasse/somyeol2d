@@ -1,7 +1,7 @@
 This game was created during the Global Jame Jam 2011 in 48hours (28. Jan. 2011, 16:30 to 30. Jan. 2011, 16:30)
 
 Required software:
-  Python (2.7 is best)
+  Python 3
     http://www.python.org/
   JNGL
     http://jngl.watteimdocht.de/
