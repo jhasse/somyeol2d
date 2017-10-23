@@ -3,15 +3,15 @@ import jngl
 import Map
 import Somyeol
 import GameObjects
-import cPickle
+import six.moves.cPickle
 import inspect
 import os
 import copy
 import random
 from Image import Image
 
-from tkFileDialog import *
-import tkMessageBox
+from tkinter.filedialog import *
+import tkinter.messagebox as tkMessageBox
 import tkinter
 
 class Mouse:
@@ -24,7 +24,7 @@ class Mouse:
 class LevelEditor(object):
     gridSize = 32
 
-    def showWindow(self):        
+    def showWindow(self):
         try:
             jngl.showWindow("Somyeol2D {0}".format(self.version), jngl.getDesktopWidth(), jngl.getDesktopHeight(), True)
             self.windowWidth = jngl.getDesktopWidth()
@@ -33,7 +33,7 @@ class LevelEditor(object):
         #except RuntimeError: # Fullscreen mode not supported?
         except:
             jngl.showWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
-        
+
         #jngl.showWindow("Somyeol2D - LevelEditor {0}".format(self.version), self.windowWidth, self.windowHeight,False)
         jngl.setBackgroundColor(255, 255, 255)
         jngl.setAntiAliasing(True)
@@ -49,7 +49,7 @@ class LevelEditor(object):
         self.scale = 1
         self.windowWidth = 1024
         self.windowHeight = 600
-        self.zoom = False        
+        self.zoom = False
         try:
             if jngl.getDesktopWidth() < 1024 or jngl.getDesktopHeight() < 768:
                 import tkMessageBox
@@ -149,6 +149,8 @@ class LevelEditor(object):
         self.port1 = None
 
         while jngl.running():
+            jngl.updateInput()
+
             x = jngl.getMouseX() - self.camerax
             y = jngl.getMouseY() - self.cameray
             if self.gridEnabled:
@@ -180,10 +182,10 @@ class LevelEditor(object):
                         self.level.saveLevel(file)
                         file.close()
                     self.showWindow()
-                    
+
                 if jngl.keyPressed("g"):
                     self.toggleGrid()
-                
+
                 if jngl.keyPressed(jngl.key.ControlL) and jngl.keyPressed("n"):
                     self.camerax = 0
                     self.cameray = 0
@@ -191,7 +193,7 @@ class LevelEditor(object):
                     self.gridEnabled = True
                     self.add10 = False
                     self.scale = 1
-                    self.zoom = False        
+                    self.zoom = False
 
                 if jngl.keyPressed("l"):# and jngl.keyDown(jngl.key.ControlL):
                     jngl.hideWindow()
@@ -214,7 +216,7 @@ class LevelEditor(object):
                     self.showWindow()
                 if jngl.keyPressed("m"):
                     self.add10 = not self.add10
-                
+
                 #Change the Placeable
                 if jngl.mousePressed(jngl.mouse.Right) or jngl.keyPressed(jngl.key.PageUp):
                     self.box = None
@@ -222,7 +224,7 @@ class LevelEditor(object):
                     self.placeable_count += 1
                     if self.placeable_count >= len(self.placeable):
                         self.placeable_count = 0
-                
+
                 if jngl.keyPressed(jngl.key.PageDown):
                     self.box = None
                     self.port1 = None
@@ -273,6 +275,7 @@ class LevelEditor(object):
 
             elif needDraw:
                 needDraw = False
+                jngl.translate(-jngl.getScreenWidth()/2, -jngl.getScreenHeight()/2)
                 jngl.pushMatrix()
                 jngl.translate(self.camerax, self.cameray)
                 self.level.drawEditor()
@@ -290,7 +293,7 @@ class LevelEditor(object):
                     elif self.port1:
                         jngl.setColor(255, 50, 50, 100)
                         jngl.drawLine(self.port1.x+16, self.port1.y+33, x+16, y+33)
-                        
+
                 jngl.popMatrix()
                 jngl.pushMatrix()
                 jngl.translate(self.camerax % self.gridSize, self.cameray % self.gridSize)
