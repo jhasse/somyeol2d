@@ -151,8 +151,8 @@ class LevelEditor(object):
         while jngl.running():
             jngl.updateInput()
 
-            x = jngl.getMouseX() - self.camerax
-            y = jngl.getMouseY() - self.cameray
+            x = jngl.getMousePos().x - self.camerax
+            y = jngl.getMousePos().y - self.cameray
             if self.gridEnabled:
                 x = int(x/self.gridSize)*self.gridSize
                 y = int(y/self.gridSize)*self.gridSize

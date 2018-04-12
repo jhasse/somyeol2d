@@ -15,3 +15,9 @@ To start the level editor just run LevelEditor.py
 To create a new level pack just create a new folder in the map/ folder and copy the maps into it
 
 Have fun ;)
+
+## Fedora Linux
+
+```
+sudo dnf install python3-tkinter
+```
