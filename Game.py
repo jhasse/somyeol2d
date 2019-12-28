@@ -121,8 +121,7 @@ class Game:
 ##        self.windowWidth = 1024
 ##        self.windowHeight = 600
 ##        jngl.showWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
-        #jngl.setBackgroundColor(255, 255, 255)
-        jngl.setBackgroundColor(144, 187, 227)
+        jngl.setBackgroundColor(jngl.Color(144, 187, 227))
         jngl.setAntiAliasing(True)
         jngl.setFont("data/Japestyle Plain.ttf")
         jngl.setFontSize(20)

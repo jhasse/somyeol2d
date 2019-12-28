@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-##############################################################
-##
-##############################################################
+#!/usr/bin/env python3
+
 import jngl
 import os
 from tkinter.filedialog import *
@@ -70,7 +68,7 @@ for f in os.listdir("data/maps/"):
         levels.append(f)
 level = 0
 start = True
-jngl.setBackgroundColor(0,0,0)
+jngl.setBackgroundColor(jngl.Color(0, 0, 0))
 running = True
 levelselect = False
 while running:#not jngl.keyPressed(jngl.key.Escape):
@@ -214,7 +212,7 @@ while running:#not jngl.keyPressed(jngl.key.Escape):
             jngl.sleep(1)
     levelselect = False
     if jngl.keyPressed(jngl.key.Return) and running:
-        jngl.setBackgroundColor(144, 187, 227)
+        jngl.setBackgroundColor(jngl.Color(144, 187, 227))
         game.running = True
         game.levelpack = "{0}/".format(levels[level])
         game.levelNr = selected
@@ -222,7 +220,7 @@ while running:#not jngl.keyPressed(jngl.key.Escape):
 ##        cProfile.run("game.run()")
         game.run()
         game.sound.stopSounds()
-        jngl.setBackgroundColor(0,0,0)
+        jngl.setBackgroundColor(jngl.Color(0, 0, 0))
         selected = 0
         if not game.levelpack_finished:
             levelselect=True

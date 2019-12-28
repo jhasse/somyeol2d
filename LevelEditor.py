@@ -35,7 +35,7 @@ class LevelEditor(object):
             jngl.showWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight)
 
         #jngl.showWindow("Somyeol2D - LevelEditor {0}".format(self.version), self.windowWidth, self.windowHeight,False)
-        jngl.setBackgroundColor(255, 255, 255)
+        jngl.setBackgroundColor(jngl.Color(255, 255, 255))
         jngl.setAntiAliasing(True)
         jngl.cancelQuit()
 
