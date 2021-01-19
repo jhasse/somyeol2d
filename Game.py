@@ -111,9 +111,9 @@ class Game:
             if (jngl.getDesktopWidth() < 1024) or (jngl.getDesktopHeight() < 600):
                 import tkMessageBox
                 tkMessageBox.showwarning("Resolution too small!","Your desktop-resolution is smaller than 1024x600. Please be aware that this can lead to graphical bugs")
-            jngl.showWindow("Somyeol2D {0}".format(self.version), jngl.getDesktopWidth(), jngl.getDesktopHeight(), True)
             self.windowWidth = jngl.getDesktopWidth()
             self.windowHeight = jngl.getDesktopHeight()
+            jngl.showWindow("Somyeol2D {0}".format(self.version), self.windowWidth, self.windowHeight, True)
             self.cameray = -self.windowHeight
         #except RuntimeError: # Fullscreen mode not supported?
         except:

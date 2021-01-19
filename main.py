@@ -16,11 +16,6 @@ def printCentered(t, x, y):
 root = tkinter.Tk()
 root.withdraw()
 game = Game()
-if not jngl.isOpenALInstalled():
-    jngl.print("Installing OpenAl... Please be patient...", 30, 30)
-    jngl.swapBuffers()
-    jngl.translate(-jngl.getScreenWidth()/2, -jngl.getScreenHeight()/2)
-    os.system("oalinst.exe -s")
 text = "loading graphics "
 dirList = os.listdir("img/World/")
 for f in dirList:
